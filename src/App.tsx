@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import { BlindBoxPage } from './pages/BlindBoxPage';
 import { InventoryPage } from './pages/InventoryPage';
 import { AssemblyPage } from './pages/AssemblyPage';
+import { ResonancePage } from './pages/ResonancePage';
 import { MissionsPage } from './pages/MissionsPage';
 import { RepairPage } from './pages/RepairPage';
 import { ComparePage } from './pages/ComparePage';
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/" element={<BlindBoxPage />} />
             <Route path="/inventory" element={<InventoryPage />} />
             <Route path="/assembly" element={<AssemblyPage />} />
+            <Route path="/resonance" element={<ResonancePage />} />
             <Route path="/missions" element={<MissionsPage />} />
             <Route path="/repair" element={<RepairPage />} />
             <Route path="/compare" element={<ComparePage />} />

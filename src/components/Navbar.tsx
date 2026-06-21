@@ -9,6 +9,7 @@ import {
   GitCompare,
   Settings,
   Bot,
+  BookOpen,
 } from 'lucide-react';
 import { ResourceBar } from './ResourceBar';
 
@@ -16,6 +17,7 @@ const navItems = [
   { path: '/', label: '盲盒开盒', icon: Package },
   { path: '/inventory', label: '零件仓库', icon: Boxes },
   { path: '/assembly', label: '组装车间', icon: Wrench },
+  { path: '/resonance', label: '共鸣词典', icon: BookOpen },
   { path: '/missions', label: '任务派遣', icon: Swords },
   { path: '/repair', label: '维修中心', icon: Heart },
   { path: '/compare', label: '方案对比', icon: GitCompare },

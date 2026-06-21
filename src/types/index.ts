@@ -136,6 +136,63 @@ export interface GameConfig {
   recyclingRates: Record<Rarity, number>;
 }
 
+export type ResonanceCategory = '流派' | '工具链' | '元素' | '稀有度' | '部位';
+
+export type ResonanceStyle = '清洁' | '救援' | '战斗' | '潜行' | '医疗' | '工业' | '探索' | '能量';
+
+export interface ResonanceBonus {
+  weightBonus?: number;
+  energyBonus?: number;
+  skillBonus?: number;
+  durabilityBonus?: number;
+  missionBonus?: Partial<Record<MissionType, number>>;
+  repairSuccessBonus?: number;
+  recycleBonus?: number;
+  blindBoxLuck?: number;
+}
+
+export interface ResonanceCondition {
+  partNames?: string[];
+  partTypes?: PartType[];
+  rarities?: Rarity[];
+  setBonuses?: string[];
+  minPartCount?: number;
+  maxEnergy?: number;
+  minWeight?: number;
+  minSkillSlots?: number;
+  requireFullCompatibility?: boolean;
+}
+
+export interface ResonanceCombo {
+  id: string;
+  name: string;
+  category: ResonanceCategory;
+  style?: ResonanceStyle;
+  description: string;
+  lore: string;
+  clue: string;
+  difficulty: 1 | 2 | 3 | 4 | 5;
+  condition: ResonanceCondition;
+  bonus: ResonanceBonus;
+  icon: string;
+}
+
+export interface ResonanceRecord {
+  id: string;
+  comboId: string | null;
+  comboName: string | null;
+  success: boolean;
+  partIds: string[];
+  partNames: string[];
+  message: string;
+  attemptedAt: number;
+}
+
+export interface ActiveResonance {
+  comboId: string;
+  activatedAt: number;
+}
+
 export interface GameState {
   parts: Part[];
   robots: Robot[];
@@ -146,6 +203,11 @@ export interface GameState {
   assemblyPlans: AssemblyPlan[];
   config: GameConfig;
   selectedParts: Record<PartType, Part | null>;
+  resonanceSlots: (Part | null)[];
+  unlockedResonances: string[];
+  activeResonances: ActiveResonance[];
+  resonanceRecords: ResonanceRecord[];
+  resonanceMaxSlots: number;
 }
 
 export interface GameActions {
@@ -184,6 +246,18 @@ export interface GameActions {
   openBlindBox: (type: Rarity, free?: boolean) => Part[];
   loadFromStorage: () => void;
   resetGame: () => void;
+  placeResonancePart: (slotIndex: number, part: Part | null) => void;
+  clearResonanceSlots: () => void;
+  attemptResonance: () => {
+    success: boolean;
+    comboId: string | null;
+    comboName: string | null;
+    isNew: boolean;
+    message: string;
+  };
+  toggleActiveResonance: (comboId: string) => void;
+  checkResonanceCondition: (parts: Part[], combo: ResonanceCombo) => boolean;
+  getActiveResonanceBonuses: () => ResonanceBonus;
 }
 
 export type Store = GameState & GameActions;
